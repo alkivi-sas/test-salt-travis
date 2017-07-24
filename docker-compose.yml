@@ -2,7 +2,7 @@ version: '2'
 services:
   web:
     build: example
-    dockerFile: example/DockerFile
+    dockerfile: example/DockerFile
     ports:
         - "80:80"
   redis:
