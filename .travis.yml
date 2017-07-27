@@ -13,8 +13,7 @@ before_install:
 before_script:
 - docker-compose up --build -d
 script:
-- sleep 30
-- docker-compose run master salt '*' test.ping
+- docker exec -it testsalttravis_master_1 salt '*' grains.items
 after_script:
 - docker-compose down
 language: python
