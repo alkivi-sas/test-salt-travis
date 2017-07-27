@@ -13,6 +13,11 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
   - docker-compose build
 
-script:
-  - docker-compose run web ping -c 5 redis
+before_script:
+  - docker-compose up --build -d
 
+script:
+  - docker-compose run master salt '*' test.ping
+
+after_script:
+  - docker-compose down

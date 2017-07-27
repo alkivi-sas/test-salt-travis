@@ -1,11 +1,26 @@
-version: '2'
+version: "3"
 
 services:
-  web:
-    build:
-      context: example
-      dockerfile: DockerFile
-    ports:
-      - "80:80"
-  redis:
-    image: "redis:alpine"
+  master:
+    image: "salt:latest"
+    privileged: true
+    hostname: master
+    environment:
+      SALT_USE: master
+      LOG_LEVEL: info
+      SALT_API: "yes"
+    expose:
+      - "4505"
+      - "4506"
+      - "8080"
+  minion:
+    image: "salt:latest"
+    privileged: true
+    hostname: minion
+    links:
+      - master
+    environment:
+      SALT_USE: minion
+      SALT_NAME: minion
+      SALT_GRAINS: "{'test': 'minion'}"
+      LOG_LEVEL: info
