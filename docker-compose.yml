@@ -2,7 +2,7 @@ version: "3"
 
 services:
   master:
-    image: "salt:latest"
+    image: "alkivi/salt:latest"
     privileged: true
     hostname: master
     environment:
@@ -14,7 +14,7 @@ services:
       - "4506"
       - "8080"
   minion:
-    image: "salt:latest"
+    image: "alkivi/salt:latest"
     privileged: true
     hostname: minion
     links:
