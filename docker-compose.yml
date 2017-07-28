@@ -26,8 +26,7 @@ services:
     hostname: minion
     container_name: minion
     depends_on:
-      master:
-        condition: service_healthy
+      - master
     links:
       - master
     environment:
