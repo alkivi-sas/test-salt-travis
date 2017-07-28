@@ -5,6 +5,7 @@ services:
     image: "alkivi/salt:latest"
     privileged: true
     hostname: master
+    container_name: master
     environment:
       SALT_USE: master
       LOG_LEVEL: info
@@ -17,6 +18,7 @@ services:
     image: "alkivi/salt:latest"
     privileged: true
     hostname: minion
+    container_name: minion
     links:
       - master
     environment:

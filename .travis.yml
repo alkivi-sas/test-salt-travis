@@ -3,18 +3,21 @@ services:
 - docker
 env:
 - DOCKER_COMPOSE_VERSION=1.14.0
+- DOCKERIZE_VERSION=v0.5.0
 before_install:
 - sudo rm /usr/local/bin/docker-compose
 - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname
   -s`-`uname -m` > docker-compose
 - chmod +x docker-compose
 - sudo mv docker-compose /usr/local/bin
+- wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+- sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 - docker-compose build
 before_script:
 - docker-compose up --build -d
 script:
-- sleep 30
-- docker exec -it testsalttravis_master_1 salt '*' grains.items
+- dockerize -wait tcp://master:4506
+- docker exec -it master salt '*' grains.items
 after_script:
 - docker-compose down
 language: python
