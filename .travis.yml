@@ -14,6 +14,7 @@ before_install:
 before_script:
 - docker-compose up --build -d
 script:
+- sleep 15
 - docker exec -it master salt '*' grains.items
 after_script:
 - docker-compose down
