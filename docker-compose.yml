@@ -15,7 +15,7 @@ services:
       - "4506"
       - "8080"
     healthcheck:
-      test: ["CMD", "telnet", "localhost" "4506"]
+      test: ["CMD", "telnet", "localhost", "4506"]
       interval: 5s
       timeout: 30s
       retries: 6
