@@ -13,8 +13,9 @@ before_install:
 - docker-compose build
 before_script:
 - docker-compose up --build -d
+- MASTER_IP=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' master`
+- while ! echo exit | nc $MASTER_IP 4505 ; do sleep 5; done
 script:
-- sleep 15
 - docker exec -it master salt '*' grains.items
 after_script:
 - docker-compose down
